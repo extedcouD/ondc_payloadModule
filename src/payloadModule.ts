@@ -1,6 +1,7 @@
+import { v4 as uuidv4 } from "uuid";
 type JSON_OBJECT = Record<string, any>;
 
-export default class PayloadModule {
+class PayloadModule {
   domain: string;
   create: any;
   validate: any;
@@ -191,5 +192,6 @@ export default class PayloadModule {
     currentObj[keys[keys.length - 1]] = value;
   };
 }
-
-export const dummyModule = new PayloadModule("domain");
+const ondc: any =  {}
+ondc.beckn = new PayloadModule("domain");
+export default ondc
