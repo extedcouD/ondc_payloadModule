@@ -1,6 +1,6 @@
 {
   "name": "ondc-payload-module",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "create ondc payloads for different domains",
   "main": "dist/payloadModule.js",
   "types": "dist/payloadModule.d.ts",

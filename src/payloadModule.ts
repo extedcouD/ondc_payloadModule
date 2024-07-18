@@ -86,22 +86,7 @@ class PayloadModule {
 
   buildContext = (session: any, action: any) => {
     const contextConfig = [
-      {
-        beckn_key: "bap_id",
-        value: "session.bap_id",
-      },
-      {
-        beckn_key: "bap_uri",
-        value: "session.bap_uri",
-      },
-      {
-        beckn_key: "bpp_id",
-        value: "session.bpp_id",
-      },
-      {
-        beckn_key: "bpp_uri",
-        value: "session.bpp_uri",
-      },
+  
       {
         beckn_key: "location.country.code",
         value: "session.country",
@@ -114,14 +99,7 @@ class PayloadModule {
         beckn_key: "transaction_id",
         value: "session.currentTransactionId",
       },
-      {
-        beckn_key: "message_id",
-        value: "uuidv4()",
-      },
-      {
-        beckn_key: "timestamp",
-        value: "new Date().toISOString()",
-      },
+
       {
         beckn_key: "domain",
         value: "session.domain",
@@ -134,25 +112,17 @@ class PayloadModule {
         beckn_key: "ttl",
         value: "session.ttl",
       },
-      {
-        beckn_key: "action",
-        value: "action",
-      },
-    ];
-    const context = {};
 
-    contextConfig.map((item: any) => {
-      try {
-        if (eval(item.value) && (item.check ? eval(item.check) : true))
-          this.createNestedField(
-            context,
-            item.beckn_key,
-            item.compute ? eval(item.compute) : eval(item.value)
-          );
-      } catch (err) {
-        console.info(item.value + " is undefined, will not be mapping that");
-      }
-    });
+    ];
+    const context: any = {};
+
+    context.bap_id = session.bap_id
+    context.bap_uri = session.bap_uri
+    context.bpp_id = session.bap_id
+    context.bpp_uri = session.bpp_uri
+    context.message_id = uuidv4()
+    context.timestamp = new Date().toISOString()
+    context.action = action
 
     return context;
   };

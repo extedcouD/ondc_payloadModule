@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var uuid_1 = require("uuid");
 var PayloadModule = /** @class */ (function () {
     function PayloadModule(domain) {
         var _this = this;
@@ -59,22 +60,6 @@ var PayloadModule = /** @class */ (function () {
         this.buildContext = function (session, action) {
             var contextConfig = [
                 {
-                    beckn_key: "bap_id",
-                    value: "session.bap_id",
-                },
-                {
-                    beckn_key: "bap_uri",
-                    value: "session.bap_uri",
-                },
-                {
-                    beckn_key: "bpp_id",
-                    value: "session.bpp_id",
-                },
-                {
-                    beckn_key: "bpp_uri",
-                    value: "session.bpp_uri",
-                },
-                {
                     beckn_key: "location.country.code",
                     value: "session.country",
                 },
@@ -85,14 +70,6 @@ var PayloadModule = /** @class */ (function () {
                 {
                     beckn_key: "transaction_id",
                     value: "session.currentTransactionId",
-                },
-                {
-                    beckn_key: "message_id",
-                    value: "uuidv4()",
-                },
-                {
-                    beckn_key: "timestamp",
-                    value: "new Date().toISOString()",
                 },
                 {
                     beckn_key: "domain",
@@ -106,21 +83,15 @@ var PayloadModule = /** @class */ (function () {
                     beckn_key: "ttl",
                     value: "session.ttl",
                 },
-                {
-                    beckn_key: "action",
-                    value: "action",
-                },
             ];
             var context = {};
-            contextConfig.map(function (item) {
-                try {
-                    if (eval(item.value) && (item.check ? eval(item.check) : true))
-                        _this.createNestedField(context, item.beckn_key, item.compute ? eval(item.compute) : eval(item.value));
-                }
-                catch (err) {
-                    console.info(item.value + " is undefined, will not be mapping that");
-                }
-            });
+            context.bap_id = session.bap_id;
+            context.bap_uri = session.bap_uri;
+            context.bpp_id = session.bap_id;
+            context.bpp_uri = session.bpp_uri;
+            context.message_id = (0, uuid_1.v4)();
+            context.timestamp = new Date().toISOString();
+            context.action = action;
             return context;
         };
         this.createNestedField = function (obj, path, value) {
