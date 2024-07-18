@@ -11,7 +11,6 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dummyModule = void 0;
 var PayloadModule = /** @class */ (function () {
     function PayloadModule(domain) {
         var _this = this;
@@ -155,7 +154,7 @@ var PayloadModule = /** @class */ (function () {
         };
         this.domain = domain;
         this.create = {
-            context: this.test,
+            context: this.buildContext,
             message: {
                 provider: this.createProvider,
                 item: this.createItem,
@@ -171,5 +170,6 @@ var PayloadModule = /** @class */ (function () {
     }
     return PayloadModule;
 }());
-exports.default = PayloadModule;
-exports.dummyModule = new PayloadModule("domain");
+var ondc = {};
+ondc.beckn = new PayloadModule("domain");
+exports.default = ondc;
