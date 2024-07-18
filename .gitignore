@@ -1,9 +1,6 @@
 # Node modules directory
 node_modules/
 
-# Build output directory
-dist/
-
 # TypeScript cache
 *.tsbuildinfo
 
@@ -58,4 +55,4 @@ temp/
 .DS_Store
 
 # TypeScript declaration files
-*.d.ts
+# *.d.ts

@@ -1,8 +1,9 @@
 {
   "name": "ondc-payload-module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "create ondc payloads for different domains",
-  "main": "dist/index.js",
+  "main": "dist/payloadModule.js",
+  "types": "dist/payloadModule.d.ts",
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",

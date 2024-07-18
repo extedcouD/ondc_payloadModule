@@ -191,3 +191,5 @@ export default class PayloadModule {
     currentObj[keys[keys.length - 1]] = value;
   };
 }
+
+export const dummyModule = new PayloadModule("domain");
