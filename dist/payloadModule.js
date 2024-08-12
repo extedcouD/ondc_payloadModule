@@ -58,37 +58,32 @@ var PayloadModule = /** @class */ (function () {
             console.log("creatring Item", data);
         };
         this.buildContext = function (session, action) {
-            var contextConfig = [
-                {
-                    beckn_key: "location.country.code",
-                    value: "session.country",
-                },
-                {
-                    beckn_key: "location.city.code",
-                    value: "session.cityCode",
-                },
-                {
-                    beckn_key: "transaction_id",
-                    value: "session.currentTransactionId",
-                },
-                {
-                    beckn_key: "domain",
-                    value: "session.domain",
-                },
-                {
-                    beckn_key: "version",
-                    value: "session.version",
-                },
-                {
-                    beckn_key: "ttl",
-                    value: "session.ttl",
-                },
-            ];
             var context = {};
-            context.bap_id = session.bap_id;
-            context.bap_uri = session.bap_uri;
-            context.bpp_id = session.bap_id;
-            context.bpp_uri = session.bpp_uri;
+            if (session.bap_id)
+                context.bap_id = session.bap_id;
+            if (session.bap_uri)
+                context.bap_uri = session.bap_uri;
+            if (session.bpp_id)
+                context.bpp_id = session.bpp_id;
+            if (session.bpp_uri)
+                context.bpp_uri = session.bpp_uri;
+            context.ttl = session.ttl;
+            context.version = session.version;
+            context.domain = session.domain;
+            context.transaction_id = session.currentTransactionId;
+            context.location = {};
+            if (session.country)
+                context.location = {
+                    country: {
+                        code: session.country,
+                    },
+                };
+            if (session.cityCode)
+                context.location = {
+                    city: {
+                        code: session.cityCode,
+                    },
+                };
             context.message_id = (0, uuid_1.v4)();
             context.timestamp = new Date().toISOString();
             context.action = action;
