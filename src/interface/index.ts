@@ -132,3 +132,23 @@ export interface IBuildPaymentParamsPayload {
   accountNumber: string;
   virtualPaymentAddress: string;
 }
+
+export interface IBuildContextPayload {
+  bap_id?: string;
+  bap_uri?: string;
+  bpp_id?: string;
+  bpp_uri?: string;
+  ttl: string;
+  version: string;
+  domain: string;
+  transaction_id: string;
+  countryCode: string;
+  cityCode: string;
+  action: string;
+}
+
+// call structure
+
+export interface IContextStructrue {
+  create: ({}: IBuildContextPayload) => any;
+}

@@ -14,22 +14,18 @@ import {
   IPayment,
   IBuildPaymentPayload,
   IBuildPaymentParamsPayload,
+  IBuildContextPayload,
+  IContextStructrue,
 } from "./interface/index";
 
 import IFis12 from "./interface/fis12/index";
 
-class A {
-  test = () => {
-    console.log("working");
-  };
-}
-
 class fis12 implements IFis12 {
-  context: any;
+  context: IContextStructrue;
   message: any;
 
   constructor() {
-    this.context.create = this.buildContext;
+    this.context = { create: this.buildContext };
     this.message = {
       intent: {
         category: {
@@ -243,28 +239,41 @@ class fis12 implements IFis12 {
     });
   };
 
-  buildContext = (session: any, action: any) => {
+  buildContext = ({
+    bap_id,
+    bap_uri,
+    bpp_id,
+    bpp_uri,
+    ttl,
+    version,
+    domain,
+    transaction_id,
+    countryCode,
+    cityCode,
+    action,
+  }: IBuildContextPayload) => {
     const context: any = {};
 
-    if (session.bap_id) context.bap_id = session.bap_id;
-    if (session.bap_uri) context.bap_uri = session.bap_uri;
-    if (session.bpp_id) context.bpp_id = session.bpp_id;
-    if (session.bpp_uri) context.bpp_uri = session.bpp_uri;
-    context.ttl = session.ttl;
-    context.version = session.version;
-    context.domain = session.domain;
-    context.transaction_id = session.currentTransactionId;
+    if (bap_id) context.bap_id = bap_id;
+    if (bap_uri) context.bap_uri = bap_uri;
+    if (bpp_id) context.bpp_id = bpp_id;
+    if (bpp_uri) context.bpp_uri = bpp_uri;
+    context.ttl = ttl;
+    context.version = version;
+    context.domain = domain;
+    context.transaction_id = transaction_id;
     context.location = {};
-    if (session.country)
+    if (countryCode)
       context.location = {
         country: {
-          code: session.country,
+          code: countryCode,
         },
       };
-    if (session.cityCode)
+    if (cityCode)
       context.location = {
+        ...context.location,
         city: {
-          code: session.cityCode,
+          code: cityCode,
         },
       };
 
@@ -450,6 +459,11 @@ class fis12 implements IFis12 {
 }
 
 const ondcFIS12 = new fis12();
-ondcFIS12.context.create();
-ondcFIS12.message.intent.create();
-export default ondcFIS12;
+
+const ondc = {
+  beckn: {
+    FIS12: ondcFIS12,
+  },
+};
+
+export default ondc;

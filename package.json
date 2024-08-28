@@ -1,6 +1,6 @@
 {
   "name": "ondc-payload-module",
-  "version": "0.0.6",
+  "version": "0.2.4",
   "description": "create ondc payloads for different domains",
   "main": "dist/payloadModule.js",
   "types": "dist/payloadModule.d.ts",
@@ -27,6 +27,7 @@
     "jest": "^29.7.0",
     "rimraf": "^6.0.1",
     "ts-jest": "^29.2.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
   },
   "dependencies": {
